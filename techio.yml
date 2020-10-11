@@ -1,4 +1,6 @@
 title: SQL alapok
 plan:
 - title: Welcome
-  statement: markdowns/welcome.md
+  statement: welcome.md
+- title: Elokeszuletek
+  statement: preparation.md
