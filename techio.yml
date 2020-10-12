@@ -1,6 +1,10 @@
 title: SQL alapok
 plan:
-- title: Welcome
+- title: Hali
   statement: welcome.md
 - title: Elokeszuletek
   statement: preparation.md
+- title: Utasitasok
+  statement: sqlCommands.md
+- title: Utasitasok
+  statement: ddlCommands.md
