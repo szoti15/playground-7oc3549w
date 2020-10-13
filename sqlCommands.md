@@ -5,7 +5,7 @@ Az Sql utasitasoknak 3 nagy fajtajat kulonboztetjuk meg:
 
 
 
-####DDL:
+#### DDL:
 adatbazis strukturak es semak definialasara/modositasara hasznalt parancsok, ezekkel tudunk tulajdonsagait beallitani, jogot adni, stb...
 
 fobb parancsok:
@@ -15,17 +15,17 @@ fobb parancsok:
 - RENAME      a letezo struktura atnevezesere hasznalt parancs
 
 
-####DML:
+#### DML:
 a DDL nyelv segitsegevel letrehozott strukturak egyikeben (tablakban) tarolt adatok manipulalasara hasznalt parancsok
 
 fobb parancsok:
-- SELECT      az adatok kinyerese az adatbazisbol
+- **SELECT**      az adatok kinyerese az adatbazisbol
 - INSERT      adatok beszurasa az adatbazisba
 - UPDATE      adatok modositasa a db (database rovidites) -ben
 - DELETE      adatok torlese a db-bol
 
 
-####DCL es TCL
+#### DCL es TCL
 tranzakciok es eleresi jogok kezelesere 
 
 (tranzakcio: egy X lepesbol allo folyamat, melyet egy egysegkent kezelunk, a folyamatot vagy egeszben hajtjuk vegre vagy sehogy, annak ellenere, h a folyamat kozepen halt el a futtatas, minden korabban vegrehajtott valtozas visszagorgetheto a kezdopontig)
@@ -40,7 +40,7 @@ fobb parancsok DCL:
 - REVOKE      valamilyen jog elvetele egy usertol vagy grouptol 
  
  
- ####Egyeb
+ #### Egyeb
  
  - egy sql serveren tobb adatbazis is letezhet egyszerre, egy adatbazist ugy kell elkepzelni, mint egy mappat, ami tobb filet gyujt egybe
  
@@ -49,7 +49,10 @@ fobb parancsok DCL:
  - egy szerveren belul az objektumok elerese hasonloan mukodik, mint mas programnyelveknel vagy mint a windowsos konyvtarszerkezetnel csak per / helyett pontot hasznalunk
  
  igy egy adatbazison belul talalhato table elerheto a kovetkezo modon: adatbazisNev.tablaNev
- pl `SELECT * FROM myDatabase.Users`
+ pl 
+ ``` sql
+ SELECT * FROM myDatabase.Users
+ ```
  
  a management toolban nyitott ablakot connectionnek (kapcsolatnak) vagy consolenak hivjuk, ezen keresztul tudunk kiadni parancsokat a server fele
  
@@ -62,9 +65,9 @@ fobb parancsok DCL:
 
 
 
-####pelda utasitasok ertelmezese:
+#### pelda utasitasok ertelmezese:
 
-```
+``` sql
 CREATE DATABASE [IF NOT EXISTS] database_name
    [CHARACTER SET charset_name]
    [COLLATE collation_name]
@@ -75,7 +78,7 @@ kisbetuvel altban a szabadon (bizonyos szabalyokat betartva) valtoztathato nevek
 
 a [ ] kozott talalhato resz opcionalis, ami azt jelenti, h nem kotelezo megadni, de ez azzal is jar, h mas eredmenyt fog hozni a kiadott parancs
 pl:
-```
+``` sql
 CREATE DATABASE valamiDbNev
 ```
 teljesen szabalyos parancs a fenti minta alapjan, az osszes opcionalis resz kihagyasaval keszult
@@ -84,6 +87,6 @@ teljesen szabalyos parancs a fenti minta alapjan, az osszes opcionalis resz kiha
 
 
 
-####NULL:
+#### NULL:
 
 sql-ben van egy specialis ertek, a `null` ez jelzi, azt, h ha adott helyen nincs semmilyen adat/ertek

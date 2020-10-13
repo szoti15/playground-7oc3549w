@@ -1,10 +1,10 @@
-###DDL utasitasok:
+### DDL utasitasok:
 
-####Adatbazison vegzett muveletek:
+#### Adatbazison vegzett muveletek:
       
 - CREATE, adatbazis letrehozasa      
 https://www.mysqltutorial.org/mysql-create-database/
-    ```
+    ``` sql 
     CREATE DATABASE [IF NOT EXISTS] database_name
     [CHARACTER SET charset_name]
     [COLLATE collation_name]
@@ -24,7 +24,7 @@ https://www.mysqltutorial.org/mysql-drop-database/
     * `IF NOT EXISTS` opcionalis, ha tartalmazza a parancs, akkor nem fogunk hibat kapni, ha nem letezik ezen a neven adatbazis
     
     
-####Tablakon vegzett muveletek:
+#### Tablakon vegzett muveletek:
 
 a tabla, hasonloan egy excel vagy access szintu tablahoz egy matriz, melynek az oszlopai az objektumokat leiro jellemzok, a sorai pedig az adatok
 pl:
@@ -39,7 +39,7 @@ a tabla a felhasznalok tarolasara lett letrehozva (maguk az objektumok a konkret
 
 - CREATE, tabla letrehozasa   
 https://www.mysqltutorial.org/mysql-create-table/
-    ```
+    ``` sql
     CREATE TABLE [IF NOT EXISTS] table_name(
        column_1_definition,
        column_2_definition,
