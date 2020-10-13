@@ -69,49 +69,19 @@ https://www.mysqltutorial.org/mysql-create-table/
      * #### oszlop definiciok (column definition):   
         `column_name data_type(length) [NOT NULL] [DEFAULT value] [AUTO_INCREMENT] [column_constraint];`
         *  `column_name data_type(length)`: az oszlop neve a column_name helyere, data_type(lenght) helyere pedig az oszlop adattipusa
-        * adattipusok: https://www.mysqltutorial.org/mysql-data-types.aspx (fobb tipusok:)
-         
-            |Szam tipusok | 	Megjegyzes|
-            |:----------|:-------------|
-            |TINYINT |	A very small integer |
-            |SMALLINT |	A small integer |
-            |MEDIUMINT |	A medium-sized integer |
-            |INT |	A standard integer |
-            |BIGINT |	A large integer |
-            |DECIMAL |	A fixed-point number |
-            |FLOAT |	A single-precision floating point number |
-            |DOUBLE |	A double-precision floating point number |
-            |BIT |	A bit field |
-         
-            |Szoveges tipusok	| Megjegyzes |
-            |:----------|:-------------|
-            |CHAR |	A fixed-length nonbinary (character) string |
-            |VARCHAR |	A variable-length non-binary string |
-            |BINARY |	A fixed-length binary string |
-            |VARBINARY |	A variable-length binary string |
-            |TINYBLOB |	A very small BLOB (binary large object) |
-            |BLOB |	A small BLOB |
-            |MEDIUMBLOB |	A medium-sized BLOB |
-            |LONGBLOB |	A large BLOB |
-            |TINYTEXT |	A very small non-binary string |
-            |TEXT |	A small non-binary string |
-            |MEDIUMTEXT |	A medium-sized non-binary string |
-            |LONGTEXT |	A large non-binary string |
-            |ENUM |	An enumeration; each column value may be assigned one enumeration member |
-            |SET |	A set; each column value may be assigned zero or more SET members |
-          
-            | Datum tipusok |	Megjegyzes |
-            |:----------|:-------------|
-            |DATE |	A date value in CCYY-MM-DD format |
-            |TIME |	A time value in hh:mm:ss format |
-            |DATETIME |	A date and time value inCCYY-MM-DD hh:mm:ssformat |
-            |TIMESTAMP |	A timestamp value in CCYY-MM-DD hh:mm:ss format |
-            |YEAR |	A year value in CCYY or YY format |
-          
-          legtobbhoz megadhato a maximalis hossza a tipusnak pl: INT(3) - 3 jegyu egesz szamok, VARCHAR(500) - 500 karakter hosszu szoveg
-          
-          <br>
+        * adattipusok: 
+        https://www.mysqltutorial.org/mysql-data-types.aspx 
 
+          legtobbhoz megadhato a maximalis hossza a tipusnak pl: INT(3) - 3 jegyu egesz szamok, VARCHAR(500) - 500 karakter hosszu szoveg
+          <br>
+          ezekbol a leggyakrabban hasznaltak: **INT**, (**BIGINT**, **TINYINT**), **FLOAT**/**DOUBLE**, **VARCHAR**, **DATE**, **DATETIME** (reszletesebb lista lent)
+          
+            * **INT**: egesz szamok tarolasara, ha esetleg tul keves, akkor **BIGINT**, ha tul nagy (pl csak true, false ertekhez, 0, 1), akkor **TINYINT**
+            * **FLOAT** vagy **DOUBLE**, tort szamok tarolasara (double kepes nagyobb szamok tarolasara)
+            * **VARCHAR** szoveg tarolasara, merete valtozo, mindig annak megfeleloen foglal le teruletet, ahany karaktert tarolunk benne
+            * **DATE** datum tarolasra (ido nelkul), **DATETIME** datum es ido tarolasa
+            
+          <br>
         * `NOT NULL`, alapertelmezetten letrehozott oszlopok tartalmazhatnak NULL erteket (azaz, nem kotelezo, h tartalmazzanak adatot), a NOT NULL segitsegevel kikothetjuk, h az oszlopba mindig kotelezo erteket szurni (ezek mellett siman hasznalhatjuk a NOT nelkul a NULL-t is az oszlop definiciojaban, ami azt koti ki, h tartalmazhat az oszlop nullokat, mivel ez az alapertelmezett, ezert ezt nem kotelezo megadni)
         * `DEFAULT value`, az oszlopban talalhato alapertelmezett ertek lesz, value helyere a konkret ertek, ha nem adunk meg adatot, akkor ezzel jon letre a sor (pl szamoknal lehet a 0)
         * `AUTO_INCREMENT`, egy tablaban csak 1 ilyen oszlop lehet, szam tipusu oszlopra csak es az erteke minden egyes sor beszurasakor automatikusan noni fog egyel (mivel automatikusan beallitodik ez az ertek ezert altban ezeknel az oszlopoknak nem tudunk kezzel beallitani erteket) 
@@ -135,4 +105,50 @@ https://www.mysqltutorial.org/mysql-create-table/
     
      
      
+     
+     
+     
+     
+----
+
+
+adattipusok:
+
+
+ |Szam tipusok | 	Megjegyzes|
+|:----------|:-------------|
+|TINYINT |	A very small integer |
+|SMALLINT |	A small integer |
+|MEDIUMINT |	A medium-sized integer |
+|INT |	A standard integer |
+|BIGINT |	A large integer |
+|DECIMAL |	A fixed-point number |
+|FLOAT |	A single-precision floating point number |
+|DOUBLE |	A double-precision floating point number |
+|BIT |	A bit field |
+
+|Szoveges tipusok	| Megjegyzes |
+|:----------|:-------------|
+|CHAR |	A fixed-length nonbinary (character) string |
+|VARCHAR |	A variable-length non-binary string |
+|BINARY |	A fixed-length binary string |
+|VARBINARY |	A variable-length binary string |
+|TINYBLOB |	A very small BLOB (binary large object) |
+|BLOB |	A small BLOB |
+|MEDIUMBLOB |	A medium-sized BLOB |
+|LONGBLOB |	A large BLOB |
+|TINYTEXT |	A very small non-binary string |
+|TEXT |	A small non-binary string |
+|MEDIUMTEXT |	A medium-sized non-binary string |
+|LONGTEXT |	A large non-binary string |
+|ENUM |	An enumeration; each column value may be assigned one enumeration member |
+|SET |	A set; each column value may be assigned zero or more SET members |
+
+| Datum tipusok |	Megjegyzes |
+|:----------|:-------------|
+|DATE |	A date value in CCYY-MM-DD format |
+|TIME |	A time value in hh:mm:ss format |
+|DATETIME |	A date and time value inCCYY-MM-DD hh:mm:ssformat |
+|TIMESTAMP |	A timestamp value in CCYY-MM-DD hh:mm:ss format |
+|YEAR |	A year value in CCYY or YY format |     
     
