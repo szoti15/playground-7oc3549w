@@ -32,7 +32,7 @@ https://www.mysqltutorial.org/mysql-drop-database/
 ---    
 ## Tablakon vegzett muveletek:
 
-a tabla, hasonloan egy excel vagy access szintu tablahoz egy matriz, melynek az oszlopai az objektumokat leiro jellemzok, a sorai pedig az adatok
+a tabla, hasonloan egy excel vagy access szintu tablahoz egy matrix, melynek az oszlopai az objektumokat leiro jellemzok, a sorai pedig az adatok
 pl:
 
 | keresztnev | vezeteknev |  emailcim |
@@ -41,7 +41,7 @@ pl:
 | viktoria |   nagy   |   nagyviktoria16@gmail.com |
 
 a tabla a felhasznalok tarolasara lett letrehozva (maguk az objektumok a konkret felhasznalok)
-1 objektum pl:  zoltan   szotak  szoti15@gmail.com, az o adatait az oszlopok hatarozzak meg (objektum tulajdonsagai)
+1 objektum pl:  **zoltan   szotak  szoti15@gmail.com**, az o adatait az oszlopok hatarozzak meg (objektum tulajdonsagai)
 
 <br>
 <br>
@@ -102,20 +102,97 @@ https://www.mysqltutorial.org/mysql-create-table/
     * `CHECK (expression)`: ugyanaz, mint az oszlop szintu check, annyi kulonbseggel, h tobb oszlopot is felhasznalhatunk a kifejezesben
     * `FOREIGN KEY [foreign_key_name] (column_name, ...) REFERENCES parent_table(colunm_name,...)`: roviden a kulso kulcsok a tabla 1-1 oszlopat kapcsoljak ossze egy masik tabla 1-1 oszlopaval ertek szerint, foreign_key_name lesz a kulso neve, parent_table a masik tabla amivel osszekapcsoljuk ezt, a column_name pedig a 2 oszlop neve amit osszekapcsolunk <br>
     * ami kozos meg a constraintekben az az, hogy el tudjuk oket nevezni (opcionalis), ugy ha a megszoritas ele a kovetkezot irjuk: `CONSTRAINT constraint_name`, ahol a contraint_name a megszoritas neve lesz, ha ezt nem tesszuk meg, akkor az sql server automatikusan elnevei a megszoritasunkat
+    * **FOREIGN KEY kiegeszites**: 
+      * hivatkozo -> hivatkozott -kent fogunk a kesobbiekben beszelni a kapcsolat ket felerol
+      * a hivatkozo oszlopban csak olyan ertekeket szurhatunk be, amik leteznek a hivatkozott oszlopban
+      * a hivatkozott oszlopbol csak akkor torolhetunk erteket, h ha nincs ra hivatkozo oszlopban olyan ertek
+      * foreign keyek letrehozasanal megadhato 2 extra opcio: 
+      ``` sql
+      [ON DELETE reference_option]
+      [ON UPDATE reference_option]
+      ```
+      
+     * ON DELETE: meghatarozza, h mi tortenjen a hivatkozo oszlopban, ha a hivatkozott oszlopbol torolnek egy erteket
+     * ON UPDATE: meghatarozza, h mi tortenjen a hivatkozo oszlopban, ha a hivatkozott oszlopban modositanak egy erteket
+     * tobb reference_option is megadhato, mindegyik masfele viselkedest eredmenyez:
+        * `CASCADE` ha a hivatkozott tablaban torlodik, valtozik egy sor, akkor a hivatkozottban is ugyanugy torlodik, valtozik az erintett sor
+        * `SET NULL` ha a hivatkozott tablaban torlodik, valtozik egy sor, akkor a hivatkozottban NULL ertek kerul beallitasra
+        * `RESTRICT` ha az ertekre van hivatkozas a hivatkozo tablaban, akkor a torles/modositas nem lehetseges
+        * `NO ACTION` ugyanaz, mint a RESTRICT
+        
+<br>     
+<br>     
+<br>     
+
+- **DROP**, tabla torlese   
+https://www.mysqltutorial.org/mysql-drop-table 
+  ```sql
+  DROP [TEMPORARY] TABLE [IF EXISTS] table_name [, table_name] ...
+  ```     
+  * `DROP TABLE table_name`  az alap parancs, ezutan kotelezo egy tabla nev megadasa (table_name helyere), vesszovel elvalasztva tobb tablat is torolhetunk egyszerr, ha nem letezik a tabla, akkor hibat kapunk
+  * `IF NOT EXISTS` opcionalis, ha tartalmazza a parancs, akkor nem fogunk hibat kapni, ha mar nem letezik a tabla
+  * `TEMPORARY`, vannak ugynevezett ideiglenes (temporary) tablak, ennek az opcionak a megadasaval csak ilyen tablakat torolhetunk
+  
+  
+<br>     
+<br>     
+<br>     
+
+- **ALTER**, tabla modositasa   
+https://www.mysqltutorial.org/mysql-alter-table.aspx
+  ```sql
+    ALTER TABLE table_name ...  
+  ```     
+  
+  itt tudunk hozzaadni, torolni, modositani (atnevezni, tipust, megszoritasokat valtoztatni) oszlopokat, illetve tablat atnevezni <br>
+  ami mindegyikben kozos az az `ALTER TABLE` es a modositani kivant tabla neve
+  * **tabla atnevezese** 
+      ``` mysql-psql
+        ALTER TABLE table_name
+        RENAME TO new_table_name;    
+      ```
+      `table_name` a tabla eredeti neve, a `new_table_name` pedig amire at akarjuk nevezni
+  * **oszlop torlese** a tablabol
+    ``` mysql-psql
+        ALTER TABLE table_name
+        DROP COLUMN column_name;
+    ```
+    `DROP COLUMN` letezo oszlop neve a tablaban (ha van ra hivatkozo foreign key, akkor eloszor azt kell torolni)
+  * **oszlop atnevezese** a tablaban
+    ```mysql-psql
+        ALTER TABLE table_name
+        CHANGE COLUMN original_name new_name column_definition
+        [FIRST | AFTER column_name];
+    ```
+    `CHANGE COLUMN` utan az oszlop regi neve majd az uj, ezutan pedig a definicioja (tipus, megszoritasok) <br>
+    `FIRST` (oszlop sorrendjenek beallitasa a tablaban) segitsegevel a tablaban ez lesz az elso oszlop <br>
+    `AFTER column_name` (oszlop sorrendjenek beallitasa a tablaban) az uj oszlop a megadott oszlop nev utan fog elhelyezkedni <br>
+    ha nincs beallitva se a `FIRST` se az `AFTER`, akkor az utolso oszlopkent jelenik majd meg a tablaban <br> 
+    //ezzel az oszlop definiciojat is meg tudjuk valtoztatni 
     
      
-     
-     
-     
-     
-     
+  * **oszlop(ok) modositasa** a tablaban
+    ```mysql-psql
+        ALTER TABLE table_name
+        MODIFY column_name column_definition [ FIRST | AFTER column_name]   
+        [, MODIFY column_name column_definition [ FIRST | AFTER column_name], ...];  
+    ```   
+    vesszovel elvalasztva akar tobb oszlopot is modosithatunk a `MODIFY` parancs segitsegevel <br>
+    annyiban ter el a `CHANGE COLUMN` -tol, hogy itt nem tudjuk megvaltoztatni az oszlop nevet, csak a definiciojat (tipus, megszoritasok)
+    
+  * **oszlop(ok) hozzaadasa** a tablahoz
+      ```mysql-psql
+        ALTER TABLE table_name
+        ADD new_column_name column_definition
+        [FIRST | AFTER column_name]
+      ```  
+    `ADD` parancs utan az uj oszlopunk neve, illetve annak definicioja (tipus, megszoritasok) <br>
+     sorrendjet a tablaban hasonloan a korabbiakhoz a FIRST, AFTER segitsegevel tudjuk meghatarozni ha szukseges
 ----
-
-
 adattipusok:
 
 
- |Szam tipusok | 	Megjegyzes|
+|Szam tipusok | 	Megjegyzes|
 |:----------|:-------------|
 |TINYINT |	A very small integer |
 |SMALLINT |	A small integer |

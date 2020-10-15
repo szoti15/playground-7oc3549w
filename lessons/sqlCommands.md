@@ -102,6 +102,23 @@ CREATE DATABASE IF NOT EXISTS valamiDbNev
 
    * az utasitasok vegen a **;** zarja le az adott utasitast, ha egy utasitas futtatasarol beszelunk, akkor ezt nem kotelezo kirakni
    * tablak, oszlopok elnevezesenel a szavakat **_**-sal valasztjuk el, pl: kereszt_nev
+   * az utasitasokat nem szukseges tobb sorba tordelni azt csupan a konnyebb olvashatosag erdekeben tesszuk, a kovetkezo utasitasok mindegyike egyforman helyes (ezek kozul az elso a legelfogadottabb): 
+   
+   ```mysql-psql
+    SELECT * FROM Users 
+    WHERE user_name = 'zoltan' 
+    ORDER BY user_id;
+
+    SELECT * FROM Users WHERE user_name = 'zoltan' ORDER BY user_id;
+    
+    SELECT *
+    FROM Users
+    WHERE user_name 
+    = 'zoltan' ORDER BY 
+    user_id;
+   ```
+
+
 
 ## NULL:
 
