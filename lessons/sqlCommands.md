@@ -104,7 +104,7 @@ CREATE DATABASE IF NOT EXISTS valamiDbNev
    * tablak, oszlopok elnevezesenel a szavakat **_**-sal valasztjuk el, pl: kereszt_nev
    * az utasitasokat nem szukseges tobb sorba tordelni azt csupan a konnyebb olvashatosag erdekeben tesszuk, a kovetkezo utasitasok mindegyike egyforman helyes (ezek kozul az elso a legelfogadottabb): 
    
-   ```mysql-psql
+   ``` sql
     SELECT * FROM Users 
     WHERE user_name = 'zoltan' 
     ORDER BY user_id;
