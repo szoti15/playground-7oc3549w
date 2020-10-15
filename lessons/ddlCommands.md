@@ -2,7 +2,7 @@
 
 ## Adatbazison vegzett muveletek:
       
-- **CREATE**, adatbazis letrehozasa      
+- **CREATE**: adatbazis letrehozasa      
 https://www.mysqltutorial.org/mysql-create-database/
     ``` sql 
     CREATE DATABASE [IF NOT EXISTS] database_name
@@ -19,7 +19,7 @@ https://www.mysqltutorial.org/mysql-create-database/
     <br>
     <br>
     
-- **DROP**, adatbazis torlese    
+- **DROP**: adatbazis torlese    
 https://www.mysqltutorial.org/mysql-drop-database/
 
     ``` sql
@@ -46,7 +46,7 @@ a tabla a felhasznalok tarolasara lett letrehozva (maguk az objektumok a konkret
 <br>
 <br>
 
-- **CREATE**, tabla letrehozasa   
+- **CREATE**: tabla letrehozasa   
 https://www.mysqltutorial.org/mysql-create-table/
     ``` sql
     CREATE TABLE [IF NOT EXISTS] table_name(
@@ -124,7 +124,7 @@ https://www.mysqltutorial.org/mysql-create-table/
 <br>     
 <br>     
 
-- **DROP**, tabla torlese   
+- **DROP**: tabla torlese   
 https://www.mysqltutorial.org/mysql-drop-table 
   ```sql
   DROP [TEMPORARY] TABLE [IF EXISTS] table_name [, table_name] ...
@@ -138,7 +138,7 @@ https://www.mysqltutorial.org/mysql-drop-table
 <br>     
 <br>     
 
-- **ALTER**, tabla modositasa   
+- **ALTER**: tabla modositasa   
 https://www.mysqltutorial.org/mysql-alter-table.aspx
   ```sql
     ALTER TABLE table_name ...  
@@ -147,19 +147,19 @@ https://www.mysqltutorial.org/mysql-alter-table.aspx
   itt tudunk hozzaadni, torolni, modositani (atnevezni, tipust, megszoritasokat valtoztatni) oszlopokat, illetve tablat atnevezni <br>
   ami mindegyikben kozos az az `ALTER TABLE` es a modositani kivant tabla neve
   * **tabla atnevezese** 
-      ``` mysql-psql
+      ``` sql
         ALTER TABLE table_name
         RENAME TO new_table_name;    
       ```
       `table_name` a tabla eredeti neve, a `new_table_name` pedig amire at akarjuk nevezni
   * **oszlop torlese** a tablabol
-    ``` mysql-psql
+    ``` sql
         ALTER TABLE table_name
         DROP COLUMN column_name;
     ```
     `DROP COLUMN` letezo oszlop neve a tablaban (ha van ra hivatkozo foreign key, akkor eloszor azt kell torolni)
   * **oszlop atnevezese** a tablaban
-    ```mysql-psql
+    ```sql
         ALTER TABLE table_name
         CHANGE COLUMN original_name new_name column_definition
         [FIRST | AFTER column_name];
@@ -172,7 +172,7 @@ https://www.mysqltutorial.org/mysql-alter-table.aspx
     
      
   * **oszlop(ok) modositasa** a tablaban
-    ```mysql-psql
+    ``` sql
         ALTER TABLE table_name
         MODIFY column_name column_definition [ FIRST | AFTER column_name]   
         [, MODIFY column_name column_definition [ FIRST | AFTER column_name], ...];  
@@ -181,14 +181,26 @@ https://www.mysqltutorial.org/mysql-alter-table.aspx
     annyiban ter el a `CHANGE COLUMN` -tol, hogy itt nem tudjuk megvaltoztatni az oszlop nevet, csak a definiciojat (tipus, megszoritasok)
     
   * **oszlop(ok) hozzaadasa** a tablahoz
-      ```mysql-psql
+      ``` sql
         ALTER TABLE table_name
         ADD new_column_name column_definition
         [FIRST | AFTER column_name]
       ```  
     `ADD` parancs utan az uj oszlopunk neve, illetve annak definicioja (tipus, megszoritasok) <br>
      sorrendjet a tablaban hasonloan a korabbiakhoz a FIRST, AFTER segitsegevel tudjuk meghatarozni ha szukseges
+     
 ----
+
+**DESCRIBE**
+
+meg egy utasitast erdemes megemlitenunk, a tabla strukturajat a workbenchben egyszeruen meg tudjuk tekinteni bal oldalt, a schema alatt, az adatbazison es a tablan belul lenyitogatva a fuleket
+<br>
+illetve egy mysql parancs segitsegevel: 
+``` sql 
+DESCRIBE table_name;
+```
+----
+
 adattipusok:
 
 

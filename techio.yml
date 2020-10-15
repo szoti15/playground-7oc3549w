@@ -8,3 +8,5 @@ plan:
   statement: lessons/sqlCommands.md
 - title: DDL utasitasok
   statement: lessons/ddlCommands.md
+- title: DDL peldak
+  statement: lessons/ddlExamples.md
