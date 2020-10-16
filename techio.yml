@@ -10,3 +10,9 @@ plan:
   statement: lessons/ddlCommands.md
 - title: DDL peldak
   statement: lessons/ddlExamples.md
+- title: DML utasitasok
+  statement: lessons/dmlCommands.md
+- title: DDL peldak 2. resz
+  statement: lessons/ddlExamples_2.md
+- title: DML utasitasok 2. resz
+  statement: lessons/dmlCommands_2.md

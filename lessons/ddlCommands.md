@@ -88,10 +88,11 @@ https://www.mysqltutorial.org/mysql-create-table/
         
         <br>
         
-        * `column_constraint` oszlop szintu megszoritasok: **UNIQUE**, **CHECK**, **PRIMARY KEY**
+        * `column_constraint` oszlop szintu megszoritasok: **UNIQUE**, **CHECK**, **PRIMARY KEY**, **GENERATED ALWAYS AS**
             * `UNIQUE`, az ilyen tipusu oszlopok ertekei egyediek, azaz egy ertek csak egyszer szerepelhet a tablaban ugyanabban az oszlopban (a unique nem zarja ki a null ertekeket, ezekbol lehet tobb is a tablaban, mivel ezek hianyzo ertekek)
             * `CHEK (expression)`: ahol az expression egy igaz-hamis ertekkel visszater kifejezes, az adat beszurasakor lefut ez az ellenorzes es ha nem teljesul, akkor hibat eredmenyez pl:  `cost INT NOT NULL CHECK (cost >= 0)`, csak 0 vagy attol nagyobb erteket lehet beszurni
             * `PRIMARY KEY`: a tabla elsodleges kulcsa, az elsodleges kulcs nem tartalmazhat nullokat es egyedinek kell lennie (ez az ami egy sort egyedileg meg tud hatarozni egy tablaban), emiatt csak 1 primary key lehet egy tablaban (ez nem jelenti azt, h csak egy oszlop... lasd kesobb), lenyegeben a PRIMARY KEY a UNIQUE es a NOT NULL kombinacioja
+            * `GENERATED ALWAYS AS`: az oszlop erteket automatikusan generalhatjuk mas oszlopok ertekeibol, pl ket szam osszege/szorzata, stb..., AS utan a kifejezes, majd megadhato, h az ertek tarolva (`STORED`) legyen vagy minden egyes lekerdezeskor ujraszamolodjon (`VIRTUAL`), pelda: `bevetel INT GENERATED ALWAYS AS (fizetes + fusi_melo) STORED` 
   
   <br>
   
@@ -127,11 +128,10 @@ https://www.mysqltutorial.org/mysql-create-table/
 - **DROP**: tabla torlese   
 https://www.mysqltutorial.org/mysql-drop-table 
   ```sql
-  DROP [TEMPORARY] TABLE [IF EXISTS] table_name [, table_name] ...
+  DROP TABLE [IF EXISTS] table_name [, table_name] ...
   ```     
   * `DROP TABLE table_name`  az alap parancs, ezutan kotelezo egy tabla nev megadasa (table_name helyere), vesszovel elvalasztva tobb tablat is torolhetunk egyszerr, ha nem letezik a tabla, akkor hibat kapunk
   * `IF NOT EXISTS` opcionalis, ha tartalmazza a parancs, akkor nem fogunk hibat kapni, ha mar nem letezik a tabla
-  * `TEMPORARY`, vannak ugynevezett ideiglenes (temporary) tablak, ennek az opcionak a megadasaval csak ilyen tablakat torolhetunk
   
   
 <br>     
@@ -189,6 +189,24 @@ https://www.mysqltutorial.org/mysql-alter-table.aspx
     `ADD` parancs utan az uj oszlopunk neve, illetve annak definicioja (tipus, megszoritasok) <br>
      sorrendjet a tablaban hasonloan a korabbiakhoz a FIRST, AFTER segitsegevel tudjuk meghatarozni ha szukseges
      
+----
+## Ideiglenes (temporary) tablak:
+
+- nagyon hasonlo a szimpla tablakhoz annyi kulonbseggel, h nem veglegesek, ezek a tablak automatikusan torlodnek a session/connection lezarasakor (egy connection pl a terminal, amit hasznalunk workbenchbol, minden terminal sajat connectiont hasznal)
+- ez azt is jelenti, h a temp (ideiglenes) tabla, csak a connectionon belul letezik es csak onnan erheto el
+- temp tablanak lehet ugyanaz a neve, viszont nem ajanlott ugyanazt hasznalni (tobb connectionon belul is lehet ugyanazt a temp tabla nevet hasznalni, hiszen az csak azon belul letezik)
+
+    **TEMPORARY** kulcsszo megadasaval tudjuk letrehozni es torolni a temp tablakat:
+    ```sql
+    CREATE TEMPORARY TABLE ...;
+  
+    DROP TEMPORARY TABLE ...;
+    ```
+  
+- ezek a tablak altalaban akkor nagyon hasznosak, ha nem akarunk egy nagyon nagy queryt irni, vagy azoknak az egymasba agyazasa tul sok eroforrast/idot eredemenyezne <br>
+ilyenkor a reszeredmenyeket ki tujuk menteni egy ideiglenes tablaba, majd azt hasznalni a kesobbiekben  
+  
+  
 ----
 
 **DESCRIBE**

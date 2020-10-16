@@ -117,16 +117,73 @@ DROP DATABASE IF EXISTS test_adatbazis;
  
  
  <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
- <br>
  
- 
+- **ALTER**: tabla modositasa   
+    * **oszlop atnevezese** a tablaban
+      nevezzuk at az `email` oszlopot `email_address`-re, illetve ezzel egyutt mozgassuk azt kozvetlenul az `identification_number` moge
+        ```sql
+        ALTER TABLE Users 
+        CHANGE COLUMN email email_address VARCHAR(500)
+        AFTER identification_number;
+        ```     
+  
+      majd a `DESCRIBE Users;` parancs segitsegevel ellenorizzuk
       
-          
-tobbi oszlop es tabla szintu megszoritasrol peldak, illetve feladatok kesobb, a DML utasitasok atvetele utan     
+    * **tabla atnevezese** <br> 
+      nevezzuk at a tablat `Users`-rol `Felhasznalok`-ra 
+      ``` sql
+        ALTER TABLE Users
+        RENAME TO Felhasznalok;    
+      ```
+      
+      ha megprobaljuk lekerni a `Users` tabla strukturajat, akkor hibat kapunk, hiszen `Users` tabla nem letezik tobbe, csak `Felhasznalok`   
+      ``` sql
+        DESCRIBE Users;
+      
+        DESCRIBE Felhasznalok;
+      ```
+      
+    * **oszlop torlese** a tablabol <br>
+    toroljuk a tablabol az `email_address` oszlopot
+        
+    ``` sql
+        ALTER TABLE Felhasznalok
+        DROP COLUMN email_address;
+  
+        DESCRIBE Felhasznalok;
+    ```
+     
+    * **oszlop(ok) hozzaadasa** a tablahoz <br>
+    adjuk hozza a tablahoz ismet az `email` oszlopot
+      ``` sql
+        ALTER TABLE Felhasznalok
+        ADD email INT;
+      
+        DESCRIBE Felhasznalok;
+      ```  
+    
+    * **oszlop(ok) modositasa** a tablaban <br>
+    rajottunk, hogy rossz az `email` tipusa, nem szamot, hanem szoveget szeretnenk tarolni, modositsuk az oszlop tipusat
+    ``` sql
+        ALTER TABLE Felhasznalok
+        MODIFY email VARCHAR(500);
+  
+        DESCRIBE Felhasznalok;    
+    ```   
+  <br>
+  <br>
+  <br>
+  
+- **DROP**: tabla torlese           
+  vegul toroljuk ki a tablankat  
+  ```sql
+  DROP TABLE IF EXISTS Felhasznalok;
+  ```     
+  
+  
+<br>     
+<br>     
+<br>     
+        
+tobbi oszlop es tabla szintu megszoritasrol peldak, illetve feladatok kesobb, a DML utasitasok utan     
 
