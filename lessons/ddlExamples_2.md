@@ -9,7 +9,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
 
 **Order_status**
  
-   - amit hasznalnu fogunk: `AUTO_INCREMENT`, `PRIMARY KEY` (egyszeru kulcs), `UNIQUE`, `NOT NULL` 
+   - amit hasznalni fogunk: `AUTO_INCREMENT`, `PRIMARY KEY` (egyszeru kulcs), `UNIQUE`, `NOT NULL` 
  
  <br>
  <br>
@@ -28,7 +28,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
         name VARCHAR(500) UNIQUE
      );
    ``` 
-   - a tabla fogja tartalmazni az elerheto statuszait egy rendelesnek, ezt a tipusu adatot Enumoknak (enumeration) nek is hivjuk, ami egy rendezett listaja egy listanak (aminek ertekei nem vagy csak nagyon ritkan valtoznak)
+   - a tabla fogja tartalmazni az elerheto statuszait egy rendelesnek, ezt a tipusu adatot Enumoknak (enumeration) nek is hivjuk, ami egy rendezett listaja olyan ertekeknek, amik nem vagy csak nagyon ritkan valtoznak
    - `status_id`: ez fogja azonositani a sort, egesz szam tipusu, elsodleges kulcs (egyedi es nem lehet null), illetve az erteke automatikusan noni fog egyel
    - `name`: ez lesz a statusz neve, 500 karakter hosszu szoveg, ertekenek egyedinek kell lennie 
     
@@ -89,7 +89,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   SELECT * FROM Order_status ORDER BY status_id;
   ``` 
     
-  az elso insertnel hibat fogunk kapni:  Duplicate entry `1` for key order_status.PRIMARY <br><br>
+  az elso insertnel hibat fogunk kapni:  `Duplicate entry '1' for key order_status.PRIMARY` <br><br>
   viszont a masodik parancsnal nem, ez azert lehetseges, mert az `AUTO_INCREMENT` miatt nem `NULL`-t akar beszurni, hanem olyan, mintha nem toltenenk ki ertekkel az oszlopot, igy automatikusan noveli es rendeli hozza az erteket<br>
   ez igaz akkor is, h ha `DEFAULT` van beallitva, annyi kulonbseggel, h a `DEFAULT` mindig ugyanazt az eredmenyt allitja be ilyenkor
   
@@ -107,7 +107,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   
   <br>
   
-  mivel a `NULL` egy specialis ertek, ami azt jelenti, h nincs kitoltve az adott sor oszlopa ertekkel, ezert ebbol tobbet is beszurhatunk
+  mivel a `NULL` egy specialis ertek, ami azt jelenti, h nincs kitoltve az adott sor oszlopa ertekkel, ezert ebbol tobbet is beszurhatunk (nem vonatkozik ra az egyediseg szabalya)
   
   ``` sql 
    INSERT INTO Order_status (name)
@@ -165,7 +165,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
 ---
   
   **Orders**
-  - amit hasznalnu fogunk: `AUTO_INCREMENT`, `PRIMARY KEY` (egyszeru kulcs), `UNIQUE`, `NOT NULL`, `DEFAULT`, `CHECK` (oszlopon es tablan), `GENERATED ALWAYS AS` (STORED es VIRTUAL), `FOREIGN KEY` 
+  - amit hasznalni fogunk: `AUTO_INCREMENT`, `PRIMARY KEY` (egyszeru kulcs), `UNIQUE`, `NOT NULL`, `DEFAULT`, `CHECK` (oszlopon es tablan), `GENERATED ALWAYS AS` (STORED es VIRTUAL), `FOREIGN KEY` 
   
   
   ``` sql 
@@ -194,7 +194,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   - `price`: a rendeles osszege, racionalis szam, nem lehet null, `CHECK` segitsegevel beallitottuk, hogy 0-tol csak nagyobb ertekeket vehet fel
   - `total_price`: a rendeles vegosszege (fizetendo), egesz szam, erteke a sor beszurasakor / modositasakor automatikusan generalodik es lementodik az oszlopba: price + (price * tax / 100) keplettel 
   - tabla szinten van meg egy kulso kulcs a status_id-ra, illetve egy ellenorzes: tax > 0 AND total_price < 100000000 <br>
-  - tabla szintu megszoritasokban tob oszlopra is hivatkozhatunk egyszerre, (a jelenlegi ellenorzeseket oszlop szinten is megadhattuk volna, vannak esetek, ahol ez nem lehetseges, illetve igy sajat nevet is tudunk adni a megszoritasunknak)
+  - tabla szintu megszoritasokban tobb oszlopra is hivatkozhatunk egyszerre, (a jelenlegi ellenorzeseket oszlop szinten is megadhattuk volna, vannak esetek, ahol ez nem lehetseges, illetve igy sajat nevet is tudunk adni a megszoritasunknak)
        
     <br>
     <br>
@@ -226,7 +226,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   
   ```
   
-  az elozo sorral osszehasonlitva latjuk, hogy a comments es tax az `INSERT`-nel medadott ertekeket, illetve a `total_price` erteke, annak ellenere, h a price ugyanaz volt, a tax ertekehez merten valtozott
+  az elozo sorral osszehasonlitva latjuk, hogy a comments es tax az `INSERT`-nel medadott ertekeket vette fel, illetve a `total_price` erteke, annak ellenere, h a price ugyanaz volt, a tax ertekehez merten valtozott
         
   <br>
   <br>
@@ -296,6 +296,8 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
    <br>
    <br>
    
+   hivatkozott tabla (Order_status) modositasakor bekovetkezo esemenyek vizsgalata, ehhez szurjunk be nehany teszt sort:
+   
   ``` sql 
      INSERT INTO Orders (order_date, status_id, price)
      VALUES ('2020-10-16', 6, 1),
@@ -331,7 +333,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   ``` 
     
   - az `UPDATE` eredmenyekent, az `Orders` tablaban levo soroknal, ahol 2 status_id volt, ott is megvaltozott 15-re, ez annak koszonheto, hogy az `ON UPDATE CASCADE` opcio meg volt adva a `FOREIGN KEY`-nel <br>
-  tehat az hivatkozott tablaban torteni `UPDATE` megjelenik a hivatkozo tablaban is (a `CASCADE` miatt)
+  tehat a hivatkozott tablaban torteno `UPDATE` megjelenik a hivatkozo tablaban is (a `CASCADE` miatt)
   
   - a `DELETE` parancs hibat eredmenyezett, mivel az `ON DELETE RESTRICT` be volt allitva, ami megakadalyozza a hivatkozott (Order_status) tablabol valo torlest, ha van ra hivatkozas, a 6-os ertekre pont volt, igy nem tudtuk torolni
   
@@ -341,7 +343,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
     DELETE FROM Orders WHERE status_id = 6;
     DELETE  FROM Order_status WHERE status_id = 6; 
   ```   
-  miutan kitoroltuk az `Orders` (hivatkozo) tablabol a 6-os status_id-val rendelkezo sorokat, gond nelkul torolheto az Order_status (hivatkozott) tablabol is  
+  miutan kitoroltuk az `Orders` (hivatkozo) tablabol a 6-os status_id-val rendelkezo sorokat, gond nelkul torolheto az `Order_status` (hivatkozott) tablabol is  
     
 <br>
 <br>
@@ -349,7 +351,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
 ---
 
 **Customers**
-- amit hasznalnu fogunk: `PRIMARY KEY` (osszetett kulcs), `UNIQUE` (tabla szintu, osszetett) 
+- amit hasznalni fogunk: `PRIMARY KEY` (osszetett kulcs), `UNIQUE` (tabla szintu, osszetett) 
 
   ``` sql 
   CREATE TABLE Customers (
@@ -367,7 +369,7 @@ Most hogy mar ismerjuk a DML utasitasok alapjait, reszletesebben ki tudjuk proba
   - `name`: a megrendelo neve, 100 karakter hosszu szoveg, kotelezo kitolteni
   - `address_city`: megrendelo cimebol a varos, 100 karakter hosszu szoveg, kotelezo kitolteni
   - `address_street`: megrendelo cimebol az utcanev, 200 karakter hosszu szoveg, kotelezo kitolteni
-  - `address_number`: megrendelo cimebol a azszam, 100 karakter hosszu szoveg, kotelezo kitolteni
+  - `address_number`: megrendelo cimebol a hazszam, 100 karakter hosszu szoveg, kotelezo kitolteni
   - `email_address`: a megrendelo email cime, 500 karakter hosszu szoveg, kotelezo kitolteni
   - tabla szinten egy elsodleges kulcs megadva, ami osszetett, tehat az email es a nev egyuttesen kell, h egyedi legyen es egyik se tartalmazhat `NULL`-t
   - tabla szinten van meg egy osszetett `UNIQUE` megszoritas is, ahol a nev es a varos kell, h egyutt egyedi legyen (de tartalmazhatnak `NULL`-t, aminek nincs jelentosege, hiszen mindket oszlop`NOT NULL`-os)
