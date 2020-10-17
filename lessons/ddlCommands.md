@@ -84,7 +84,7 @@ https://www.mysqltutorial.org/mysql-create-table/
           <br>
         * `NOT NULL`, alapertelmezetten letrehozott oszlopok tartalmazhatnak NULL erteket (azaz, nem kotelezo, h tartalmazzanak adatot), a NOT NULL segitsegevel kikothetjuk, h az oszlopba mindig kotelezo erteket szurni (ezek mellett siman hasznalhatjuk a NOT nelkul a NULL-t is az oszlop definiciojaban, ami azt koti ki, h tartalmazhat az oszlop nullokat, mivel ez az alapertelmezett, ezert ezt nem kotelezo megadni)
         * `DEFAULT value`, az oszlopban talalhato alapertelmezett ertek lesz, value helyere a konkret ertek, ha nem adunk meg adatot, akkor ezzel jon letre a sor (pl szamoknal lehet a 0)
-        * `AUTO_INCREMENT`, egy tablaban csak 1 ilyen oszlop lehet, szam tipusu oszlopra csak es az erteke minden egyes sor beszurasakor automatikusan noni fog egyel (mivel automatikusan beallitodik ez az ertek ezert altban ezeknel az oszlopoknak nem tudunk kezzel beallitani erteket) 
+        * `AUTO_INCREMENT`, egy tablaban csak 1 ilyen oszlop lehet, szam tipusu oszlopra csak es az erteke minden egyes sor beszurasakor automatikusan noni fog egyel (mivel automatikusan beallitodik ez az ertek ezert altban ezeknel az oszlopoknak nem tudunk kezzel beallitani erteket), alapbol 1-tol indul a szamolas, viszont ez megvaltoztathato: `ALTER TABLE table_name AUTO_INCREMENT = 100;` 
         
         <br>
         
@@ -219,6 +219,15 @@ DESCRIBE table_name;
 ```
 ----
 
+**SHOW CREATE TABLE**
+
+``` sql 
+  SHOW CREATE TABLE table_name;
+```
+
+a parancs segitsegevel kigeneralhatjuk a tablahoz tartozo `CREATE TABLE` utasitast, igy annak megtekinthetjuk a teljes definiciojat
+
+----
 adattipusok:
 
 

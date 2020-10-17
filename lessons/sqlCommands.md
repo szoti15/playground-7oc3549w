@@ -123,3 +123,12 @@ CREATE DATABASE IF NOT EXISTS valamiDbNev
 ## NULL:
 
 sql-ben van egy specialis ertek, a `null` ez jelzi, azt, h ha adott helyen nincs semmilyen adat/ertek
+
+alapbol a `WHERE` agban talalhato kifejezeseknel az `=` es `!=` vagy `<>` operatorokat hasznaljuk, hogy ha egy ertekrol el akarjuk donteni, h az megegyezik vagy elter egy masik ertektol <br>
+`NULL`-nal ezek nem hasznalhatoak, hiszen ez nem rendelkezik ertekkel, ilyenkor az `IS NULL`-t vagy `IS NOT NULL`-t tudjuk hasznalni, pl: <br>
+
+``` sql 
+SELECT * FROM table_name WHERE column_name IS NOT NULL
+``` 
+azokat a sorokat keressuk, ahol a column_name-ben talalhato ertekek nem lehetnek NULL-ok
+
