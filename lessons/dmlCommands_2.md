@@ -6,7 +6,7 @@
 (a sema es az adatok oracle sql-bol lett atemelve, ezert a kepen levo tipusok elterhetnek, pl INT helyett NUMBER)
 ![alt text](../pics/olimpia.png)
 
-[olimpia adatbazis sema](../sql/all_in_one.sql)
+[olimpia adatbazis sema](../sql/all_in_one.txt)
 
 # SELECT
 
