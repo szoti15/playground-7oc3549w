@@ -415,7 +415,7 @@ SELECT * FROM O_VERSENYZOK LIMIT 33, 10;
 <br>
 <br>
 
-#FELADATOK:
+# FELADATOK:
 
 1. Listázzuk ki azokat az országokat, amelyek területe 0.
 2. Listázzuk ki azoknak az országoknak az adatait, ahol nincs megadva mennyi az ország területe.
