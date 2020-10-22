@@ -418,153 +418,167 @@ SELECT * FROM O_VERSENYZOK LIMIT 33, 10;
 # FELADATOK:
 
 
-1. Listázzuk ki azokat az országokat, amelyek területe 0.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag, terulet
-    FROM o_orszagok
-    WHERE terulet = 0;
-    ```
-    :::
+Listázzuk ki azokat az országokat, amelyek területe 0.
 
-2. Listázzuk ki azoknak az országoknak az adatait, ahol nincs megadva mennyi az ország területe.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_orszagok
-    WHERE terulet IS NULL;
-    ```
-    :::
+::: megoldas
+``` sql 
+SELECT orszag, terulet
+FROM o_orszagok
+WHERE terulet = 0;
+```
+:::
 
-3. Listázzuk ki azoknak az országoknak az adatait, ahol meg van adva mennyi az ország területe.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_orszagok
-    WHERE terulet IS NOT NULL;
-    ```
-    :::
+Listázzuk ki azoknak az országoknak az adatait, ahol nincs megadva mennyi az ország területe.
 
-4. Listázzuk ki Magyarország, Kína, és Japán adatait.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_orszagok
-    WHERE orszag IN ('Magyarország', 'Kína', 'Japán');
+::: megoldas
+``` sql 
+SELECT *
+FROM o_orszagok
+WHERE terulet IS NULL;
+```
+:::
+
+Listázzuk ki azoknak az országoknak az adatait, ahol meg van adva mennyi az ország területe.
+
+::: megoldas
+``` sql 
+SELECT *
+FROM o_orszagok
+WHERE terulet IS NOT NULL;
+```
+:::
     
-    vagy
-    
-    SELECT *
-    FROM o_orszagok
-    WHERE orszag = 'Magyarország' OR orszag = 'Kína' OR orszag = 'Japán';
-    ```
-    :::
+Listázzuk ki Magyarország, Kína, és Japán adatait.
 
-5. Listázzuk ki az összes ország adatait, kivéve Magyarországot, Kínát, és Japánt.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_orszagok
-    WHERE orszag NOT IN ('Magyarország', 'Kína', 'Japán');
-    
-    vagy
-    
-    SELECT *
-    FROM o_orszagok
-    WHERE orszag != 'Magyarország' AND  orszag != 'Kína' AND orszag != 'Japán';
-    
-    vagy
-    
-    SELECT *
-    FROM o_orszagok
-    WHERE NOT (orszag = 'Magyarország' OR orszag = 'Kína' OR orszag = 'Japán');
-    ```
-    :::
+::: megoldas
+``` sql 
+SELECT *
+FROM o_orszagok
+WHERE orszag IN ('Magyarország', 'Kína', 'Japán');
 
-6. Listázzuk ki azokat az országokat, amelyek neve A betűvel kezdődik.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag
-    FROM o_orszagok
-    WHERE orszag LIKE 'A%';
-    ```
-    :::
+vagy
 
-7. Listázzuk ki azokat az országokat, amelyek neve A betűvel kezdődik, és a 3. betűje e betű.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag
-    FROM o_orszagok
-    WHERE orszag LIKE 'A_e%' ;
-    ```
-    :::
+SELECT *
+FROM o_orszagok
+WHERE orszag = 'Magyarország' OR orszag = 'Kína' OR orszag = 'Japán';
+```
+:::
 
-8. Listázzuk ki azon egyéni versenyzők adatait, akiknek az országazonosítójuk 131, és Debrecenben születtek.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_versenyzok
-    WHERE orszag_azon = 131 and egyen_csapat = 'e' and szul_hely = 'Debrecen';
-    ```
-    :::
+Listázzuk ki az összes ország adatait, kivéve Magyarországot, Kínát, és Japánt.
 
-9. Listázzuk azon versenyzők adatait, akik Egerben születtek vagy a nevükben két 'e' betű van.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_versenyzok
-    WHERE szul_hely = 'Eger' OR nev LIKE '%e%e%';
-    ```
-    :::
+::: megoldas
+``` sql 
+SELECT *
+FROM o_orszagok
+WHERE orszag NOT IN ('Magyarország', 'Kína', 'Japán');
 
-10. Listázzuk ki azon versenyzők adatait, akiknek nincs megadva a születési helyük, az országazonosítójuk 4, és az egyen_csapat oszlopban nem 'c' betű szerepel.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_versenyzok
-    WHERE szul_hely IS NULL and orszag_azon = 4 and egyen_csapat != 'c';
-    ```
-    :::
+vagy
 
-11. Listázzuk ki azon csapatok adatait a versenyzők táblából, akiknek az országazonosítójuk 4 vagy 131 vagy 15 vagy 23.
-    ::: megoldas
-    ``` sql 
-    SELECT *
-    FROM o_versenyzok
-    WHERE egyen_csapat = 'c' 
-    and (orszag_azon = 4 OR orszag_azon = 131 OR orszag_azon = 15 OR orszag_azon = 23);
-    
-    vagy
-    
-    SELECT *
-    FROM o_versenyzok
-    WHERE egyen_csapat = 'c' AND orszag_azon IN (4, 131, 15, 23);
-    ```
-    :::
+SELECT *
+FROM o_orszagok
+WHERE orszag != 'Magyarország' AND  orszag != 'Kína' AND orszag != 'Japán';
 
-12. Listázzuk ki az érem táblából azokat az országazonosítókat, ahol vagy 2 ezüstöt vagy 1 bronzot nyertek.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag_azon, bronz, ezust
-    FROM o_erem_tabla
-    WHERE ezust=2 OR bronz=1;
-    ```
-    :::
+vagy
 
-13. Listázzuk ki az éremtáblából azokat az országazonosítókat, ahol 5 és 10 közötti arany született.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag_azon, arany
-    FROM o_erem_tabla
-    WHERE arany BETWEEN 5 and 10;
-    ```
-    :::
+SELECT *
+FROM o_orszagok
+WHERE NOT (orszag = 'Magyarország' OR orszag = 'Kína' OR orszag = 'Japán');
+```
+:::
 
-14. Listázzuk ki az érem táblából azokat az országazonosítókat, amelyeknél az érmek összege több, mint 15.
-    ::: megoldas
-    ``` sql 
-    SELECT orszag_azon, arany, ezust, bronz
-    FROM o_erem_tabla
-    WHERE arany + ezust + bronz > 15;
-    ```
-    :::
+Listázzuk ki azokat az országokat, amelyek neve A betűvel kezdődik.
+
+::: megoldas
+``` sql 
+SELECT orszag
+FROM o_orszagok
+WHERE orszag LIKE 'A%';
+```
+:::
+
+Listázzuk ki azokat az országokat, amelyek neve A betűvel kezdődik, és a 3. betűje e betű.
+
+::: megoldas
+``` sql 
+SELECT orszag
+FROM o_orszagok
+WHERE orszag LIKE 'A_e%' ;
+```
+:::
+
+Listázzuk ki azon egyéni versenyzők adatait, akiknek az országazonosítójuk 131, és Debrecenben születtek.
+
+::: megoldas
+``` sql 
+SELECT *
+FROM o_versenyzok
+WHERE orszag_azon = 131 and egyen_csapat = 'e' and szul_hely = 'Debrecen';
+```
+:::
+
+Listázzuk azon versenyzők adatait, akik Egerben születtek vagy a nevükben két 'e' betű van.
+
+::: megoldas
+``` sql 
+SELECT *
+FROM o_versenyzok
+WHERE szul_hely = 'Eger' OR nev LIKE '%e%e%';
+```
+:::
+
+Listázzuk ki azon versenyzők adatait, akiknek nincs megadva a születési helyük, az országazonosítójuk 4, és az egyen_csapat oszlopban nem 'c' betű szerepel.
+
+::: megoldas
+``` sql 
+SELECT *
+FROM o_versenyzok
+WHERE szul_hely IS NULL and orszag_azon = 4 and egyen_csapat != 'c';
+```
+:::
+
+Listázzuk ki azon csapatok adatait a versenyzők táblából, akiknek az országazonosítójuk 4 vagy 131 vagy 15 vagy 23.
+
+::: megoldas
+``` sql 
+SELECT *
+FROM o_versenyzok
+WHERE egyen_csapat = 'c' 
+and (orszag_azon = 4 OR orszag_azon = 131 OR orszag_azon = 15 OR orszag_azon = 23);
+
+vagy
+
+SELECT *
+FROM o_versenyzok
+WHERE egyen_csapat = 'c' AND orszag_azon IN (4, 131, 15, 23);
+```
+:::
+
+Listázzuk ki az érem táblából azokat az országazonosítókat, ahol vagy 2 ezüstöt vagy 1 bronzot nyertek.
+
+::: megoldas
+``` sql 
+SELECT orszag_azon, bronz, ezust
+FROM o_erem_tabla
+WHERE ezust=2 OR bronz=1;
+```
+:::
+
+Listázzuk ki az éremtáblából azokat az országazonosítókat, ahol 5 és 10 közötti arany született.
+
+::: megoldas
+``` sql 
+SELECT orszag_azon, arany
+FROM o_erem_tabla
+WHERE arany BETWEEN 5 and 10;
+```
+:::
+
+Listázzuk ki az érem táblából azokat az országazonosítókat, amelyeknél az érmek összege több, mint 15.
+
+::: megoldas
+``` sql 
+SELECT orszag_azon, arany, ezust, bronz
+FROM o_erem_tabla
+WHERE arany + ezust + bronz > 15;
+```
+:::
