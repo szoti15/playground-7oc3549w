@@ -16,3 +16,5 @@ plan:
   statement: lessons/ddlExamples_2.md
 - title: DML utasitasok 2. resz
   statement: lessons/dmlCommands_2.md
+- title: DML utasitasok 3. resz
+  statement: lessons/dmlCommands_3.md
